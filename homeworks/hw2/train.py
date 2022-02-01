@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 
 from networks import GraspPredictorNetwork
-from dataset import get_data_loaders, ReflectionTransform
+from dataset import get_data_loaders, RandomReflectionTransform
 import utils
 
 def train(model_name: str,

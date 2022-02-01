@@ -11,12 +11,16 @@ from torch.utils.data import Dataset, DataLoader
 from torchvision.transforms import ToTensor
 
 
-class ReflectionTransform:
+class RandomReflectionTransform:
+    def __init__(self, p: float=0.5):
+        self.p = p
+
     def __call__(self,
                  sample: Dict[str, Tensor],
                 ) -> Dict[str, Tensor]:
         '''Applies transformation to sample by reflecting image about vertical
-        axis (e.g. x axis of simulator)
+        axis (e.g. x axis of simulator) with probability of self.p (i.e. if
+        self.p=0.5, then the transformation should occur 50% of the time)
 
         Parameters
         ----------
@@ -94,7 +98,7 @@ def get_data_loaders(train_dataset_path: str,
                      batch_size: int,
                      use_augmentation: bool=False,
                     ) -> Tuple[DataLoader, DataLoader]:
-    transform = ReflectionTransform() if use_augmentation else None
+    transform = RandomReflectionTransform() if use_augmentation else None
     train_dataset = SuccessfulGraspDataset(train_dataset_path, transform)
 
     test_dataset = SuccessfulGraspDataset(test_dataset_path, transform=None)
@@ -123,7 +127,7 @@ def visualize_dataset(dataset_path: str):
 def test_reflection_augmentation(dataset_path: str):
     dataset = SuccessfulGraspDataset(dataset_path)
 
-    transform = ReflectionTransform()
+    transform = RandomReflectionTransform(p=0.)
 
     f, axs = plt.subplots(4, 2, figsize=(4,8))
     for i, (ax0, ax1) in enumerate(axs):
