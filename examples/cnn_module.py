@@ -24,8 +24,28 @@ class CNN(nn.Module):
         '''
         super().__init__()
 
-        self.output_size = None
-        pass
+        self.layers = nn.Sequential(
+            nn.Conv2d(img_shape[0], 32, kernel_size=3, stride=2, padding=0),
+            nn.ReLU(True),
+            nn.Conv2d(32, 32, kernel_size=3, stride=1, padding=0),
+            nn.ReLU(True),
+            nn.Conv2d(32, 32, kernel_size=3, stride=1, padding=0),
+            nn.ReLU(True),
+            nn.Conv2d(32, 32, kernel_size=3, stride=1, padding=0),
+            nn.ReLU(True),
+            nn.Flatten(),
+        )
+
+        self.output_size = self.compute_output_size(img_shape)
+
+    def compute_output_size(self, img_shape: Size) -> int:
+        x = torch.zeros( img_shape, dtype=torch.float32)
+
+        # add batch dimension
+        x = x.unsqueeze(0)
+
+        out = self.forward(x)
+        return out.shape[1]
 
     def forward(self, x: Tensor) -> Tensor:
         '''Performs forward pass on batch of input images, returning vectors
@@ -40,7 +60,7 @@ class CNN(nn.Module):
         Tensor
             output vectors, shape=(B,self.output_size) of dtype=torch.float32
         '''
-        pass
+        return self.layers(x)
 
 
 if __name__ == "__main__":
