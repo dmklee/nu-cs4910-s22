@@ -1,15 +1,18 @@
 # CS4910: Deep Learning for Robotics
 This repository holds all in-class examples and homework assignments.
 
-## Setup
+## Downloading
+To access the scripts in this repo, download it with the following command:
+```
+git clone https://github.com/dmklee/nu-cs4910-s22.git
+```
+
+## Dependencies
 You will need to install some dependencies to run the code in this repository.  Enter following commands into your terminal to create a conda environment, called cs4910, with the necessary dependencies (this should work on any OS).
 ```shell
 conda create -n cs4910 python=3.8
 conda activate cs4910
 conda install -c conda-forge pybullet
-pip install scipy
+pip install -r requirements.txt
 ```
-To access the scripts in this repo, download it with the following command:
-```
-git clone https://github.com/dmklee/nu-cs4910-s22.git
-```
+Finally, follow the steps [here](https://pytorch.org/get-started/locally/) to install the appropriate version of pytorch.

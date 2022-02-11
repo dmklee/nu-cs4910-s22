@@ -1,0 +1,4 @@
+scipy
+tqdm
+gym
+h5py
