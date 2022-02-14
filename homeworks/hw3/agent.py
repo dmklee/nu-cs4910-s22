@@ -66,9 +66,6 @@ class DQNAgent:
             interval (in env steps) between plotting of training data, if 0
             then never plots.
         '''
-        f, predictions_axs = plt.subplots(2, 5, figsize=(7,2.5))
-        f, curves_axs = plt.subplots(1, 3, figsize=(7,3))
-
         rewards_data = []
         success_data = []
         loss_data = []
@@ -114,10 +111,9 @@ class DQNAgent:
                 with torch.no_grad():
                     q_map_pred = self.network(imgs)
                     actions = argmax2d(q_map_pred)
-                plot_predictions(imgs, q_map_pred, actions, predictions_axs)
-                plot_curves(rewards_data, success_data, loss_data, curves_axs)
-                plt.draw()
-                plt.pause(1)
+                plot_predictions(imgs, q_map_pred, actions)
+                plot_curves(rewards_data, success_data, loss_data)
+                plt.show()
 
         return rewards_data, success_data, loss_data
 

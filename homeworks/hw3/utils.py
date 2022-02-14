@@ -4,11 +4,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def plot_predictions(images, qmaps, actions, axs):
+def plot_predictions(images, qmaps, actions):
     '''Allows user to compare the input images with the predicted qmaps (yellow
     is higher value) and predicted actions during training
     '''
-    [a.clear() for a in axs.flatten()]
+    f, axs = plt.subplots(2, 5, figsize=(7,2.5))
 
     for ci in range(axs.shape[1]):
         axs[0,ci].imshow(images[ci].permute((1,2,0)).cpu())
@@ -25,7 +25,8 @@ def plot_predictions(images, qmaps, actions, axs):
     plt.tight_layout()
 
 
-def plot_curves(rewards, success, loss, axs):
+def plot_curves(rewards, success, loss):
+    f, axs = plt.subplots(1, 3, figsize=(7,2.5))
     W = 50 # smoothing window
 
     [a.clear() for a in axs]
